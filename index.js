@@ -50,6 +50,19 @@ app.post('/purchasedfoods', async (req, res) => {
     const result = await PurchasedFoods.insertOne(food);
     res.send(result);
 })
+
+
+app.put('/foods/:id', async (req, res) => {
+    const id = req.params.id;
+    const filter = { _id: new ObjectId(id) };
+    const updatedFood = req.body;
+    const updateDoc = {
+        $set: updatedFood  
+    }
+    const options = { upsert: true };
+    const result = await Foods.updateOne(filter, updateDoc, options);
+    res.send(result);
+})
 app.patch('/foods/:id', async (req, res) => {
     const id = req.params.id;
     const filter = { _id: new ObjectId(id) };
