@@ -34,6 +34,12 @@ app.get('/foods/:id', async (req, res) => {
     const result = await Foods.findOne(query);
     res.send(result);
 })
+app.get('/foods/:email', async (req, res) => {
+    const email = req.params.id;
+    const query = { email: email };
+    const result = await Foods.findOne(query);
+    res.send(result);
+})
 app.post('/foods', async (req, res) => {
     const food = req.body;
     const result = await Foods.insertOne(food);
