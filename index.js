@@ -40,6 +40,12 @@ app.get('/foods/:email', async (req, res) => {
     const result = await Foods.findOne(query);
     res.send(result);
 })
+app.get('/foods/:email', async (req, res) => {
+    const email = req.params.id;
+    const query = { email: email };
+    const result = await PurchasedFoods.find(query).toArray();
+    res.send(result);
+})
 app.post('/foods', async (req, res) => {
     const food = req.body;
     const result = await Foods.insertOne(food);
@@ -52,7 +58,7 @@ app.post('/purchasedfoods', async (req, res) => {
 })
 
 
-app.put('/foods/:id', async (req, res) => {
+app.patch('/food/:id', async (req, res) => {
     const id = req.params.id;
     const filter = { _id: new ObjectId(id) };
     const updatedFood = req.body;
