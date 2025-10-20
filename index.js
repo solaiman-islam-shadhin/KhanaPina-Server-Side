@@ -40,7 +40,7 @@ app.get('/foods/:email', async (req, res) => {
     const result = await Foods.findOne(query);
     res.send(result);
 })
-app.get('/foods/:email', async (req, res) => {
+app.get('/pruchasedfoods/:email', async (req, res) => {
     const email = req.params.id;
     const query = { email: email };
     const result = await PurchasedFoods.find(query).toArray();
@@ -56,6 +56,13 @@ app.post('/purchasedfoods', async (req, res) => {
     const result = await PurchasedFoods.insertOne(food);
     res.send(result);
 })
+
+ app.delete("/pruchasedfoods/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) }
+            const result = await PurchasedFoods.deleteOne(query)
+            res.send(result);
+        })
 
 
 app.patch('/food/:id', async (req, res) => {
