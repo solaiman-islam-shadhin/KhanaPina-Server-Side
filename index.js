@@ -28,15 +28,33 @@ app.get('/foods', async (req, res) => {
     const result = await Foods.find().toArray();
     res.send(result);
 })
-app.get('/foods/:id',async(req,res)=>{
-const id=req.params.id;
-const query={_id: new ObjectId(id)};
-const result =await Foods.findOne(query);
-res.send(result);
+app.get('/foods/:id', async (req, res) => {
+    const id = req.params.id;
+    const query = { _id: new ObjectId(id) };
+    const result = await Foods.findOne(query);
+    res.send(result);
 })
 app.post('/foods', async (req, res) => {
     const food = req.body;
     const result = await Foods.insertOne(food);
+    res.send(result);
+})
+app.post('/purchasedfoods', async (req, res) => {
+    const food = req.body;
+    const result = await PurchasedFoods.insertOne(food);
+    res.send(result);
+})
+app.patch('/purchasedfoods/:id', async (req, res) => {
+    const id = req.params.id;
+    const filter = { _id: new ObjectId(id) };
+    const updatedFood = req.body;
+    const updateDoc = {
+        $set: {
+            updatedFood
+        }
+    }
+    const options = { upsert: true };
+    const result = await Foods.updateOne(filter, updateDoc, options);
     res.send(result);
 })
 
