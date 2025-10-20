@@ -22,6 +22,7 @@ const client = new MongoClient(uri, {
 // server side work start from here
 
 const Foods = client.db("KhanaPina").collection("Foods");
+const PurchasedFoods = client.db("KhanaPina").collection("FoodPurchases");
 
 app.get('/foods', async (req, res) => {
     const result = await Foods.find().toArray();
