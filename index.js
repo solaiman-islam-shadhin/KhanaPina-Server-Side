@@ -60,6 +60,12 @@ app.get('/pruchasedfoods/:email', async (req, res) => {
     const result = await PurchasedFoods.find(query).toArray();
     res.send(result);
 })
+app.get('/customer-orders/:email', async (req, res) => {
+    const email = req.params.email;
+    const query = { ownerEmail: email };
+    const result = await PurchasedFoods.find(query).toArray();
+    res.send(result);
+})
 
 
 
@@ -108,6 +114,17 @@ app.patch('/foods/:id', async (req, res) => {
     }
     const options = { upsert: true };
     const result = await Foods.updateOne(filter, updateDoc, options);
+    res.send(result);
+})
+app.patch('/purchasedfoods/:id', async (req, res) => {
+    const id = req.params.id;
+    const filter = { _id: new ObjectId(id) };
+    const updatedFood = req.body;
+    const updateDoc = {
+        $set: updatedFood
+    }
+    const options = { upsert: true };
+    const result = await PurchasedFoods.updateOne(filter, updateDoc, options);
     res.send(result);
 })
 
