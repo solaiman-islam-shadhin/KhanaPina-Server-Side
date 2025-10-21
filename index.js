@@ -41,6 +41,12 @@ app.get('/my-foods/:email', async (req, res) => {
     const result = await Foods.find(query).toArray();
     res.send(result);
 })
+app.get('/user/:email', async (req, res) => {
+    const email = req.params.email;
+    const query = { email: email };
+    const result = await UserCollection.findOne(query);
+    res.send(result);
+})
 app.get('/pruchasedfoods/:email', async (req, res) => {
     const email = req.params.email;
     const query = { email: email };
