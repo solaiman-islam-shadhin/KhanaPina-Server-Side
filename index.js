@@ -105,9 +105,9 @@ app.patch('/foods/:id', async (req, res) => {
 // notify section
 
 
-await client.connect();
-await client.db("admin").command({ ping: 1 });
-console.log("Pinged your deployment. You successfully connected to MongoDB!");
+// await client.connect();
+// await client.db("admin").command({ ping: 1 });
+// console.log("Pinged your deployment. You successfully connected to MongoDB!");
 
 app.get('/', (req, res) => {
     res.send('KHAAAAAAAAANNNNNAAA    PIIIIIINAAAAAA!')
