@@ -24,9 +24,16 @@ const client = new MongoClient(uri, {
 const Foods = client.db("KhanaPina").collection("Foods");
 const PurchasedFoods = client.db("KhanaPina").collection("FoodPurchases");
 const UserCollection = client.db("KhanaPina").collection("UsersInfo");
+const UserReview = client.db("KhanaPina").collection("Reviews");
+
+
 
 app.get('/foods', async (req, res) => {
     const result = await Foods.find().toArray();
+    res.send(result);
+})
+app.get('/reviews', async (req, res) => {
+    const result = await UserReview.find().toArray();
     res.send(result);
 })
 app.get('/foods/:id', async (req, res) => {
@@ -53,6 +60,10 @@ app.get('/pruchasedfoods/:email', async (req, res) => {
     const result = await PurchasedFoods.find(query).toArray();
     res.send(result);
 })
+
+
+
+
 app.post('/foods', async (req, res) => {
     const food = req.body;
     const result = await Foods.insertOne(food);
@@ -68,15 +79,14 @@ app.post('/userinfo', async (req, res) => {
     const result = await UserCollection.insertOne(food);
     res.send(result);
 })
-
-
-
-app.delete("/purchasedfoods/:id", async (req, res) => {
-    const id = req.params.id;
-    const query = { _id: new ObjectId(id) }
-    const result = await PurchasedFoods.deleteOne(query)
+app.post('/userreview', async (req, res) => {
+    const review = req.body;
+    const result = await UserReview.insertOne(review);
     res.send(result);
 })
+
+
+
 
 app.patch('/food/:id', async (req, res) => {
     const id = req.params.id;
@@ -101,6 +111,14 @@ app.patch('/foods/:id', async (req, res) => {
     res.send(result);
 })
 
+
+
+app.delete("/purchasedfoods/:id", async (req, res) => {
+    const id = req.params.id;
+    const query = { _id: new ObjectId(id) }
+    const result = await PurchasedFoods.deleteOne(query)
+    res.send(result);
+})
 
 // notify section
 
