@@ -23,6 +23,7 @@ const client = new MongoClient(uri, {
 
 const Foods = client.db("KhanaPina").collection("Foods");
 const PurchasedFoods = client.db("KhanaPina").collection("FoodPurchases");
+const UserCollection = client.db("KhanaPina").collection("UsersInfo");
 
 app.get('/foods', async (req, res) => {
     const result = await Foods.find().toArray();
@@ -56,6 +57,13 @@ app.post('/purchasedfoods', async (req, res) => {
     const result = await PurchasedFoods.insertOne(food);
     res.send(result);
 })
+app.post('/userinfo', async (req, res) => {
+    const food = req.body;
+    const result = await UserCollection.insertOne(food);
+    res.send(result);
+})
+
+
 
 app.delete("/purchasedfoods/:id", async (req, res) => {
     const id = req.params.id;
@@ -63,7 +71,6 @@ app.delete("/purchasedfoods/:id", async (req, res) => {
     const result = await PurchasedFoods.deleteOne(query)
     res.send(result);
 })
-
 
 app.patch('/food/:id', async (req, res) => {
     const id = req.params.id;
